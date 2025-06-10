@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class Gun : MonoBehaviour
 {
@@ -6,11 +7,19 @@ public class Gun : MonoBehaviour
     public float range = 100f;
     public float damage = 20f;
 
+    public SpriteRenderer muzzleFlash;
+
+    void Start()
+    {
+        muzzleFlash.enabled = false;
+    }
+
     void Update()
     {
         if (Input.GetButtonDown("Fire1"))
         {
             Shoot();
+            StartCoroutine(ShowMuzzleFlash());
         }
     }
 
@@ -27,5 +36,12 @@ public class Gun : MonoBehaviour
                 enemy.TakeDamage(damage);
             }
         }
+    }
+
+    IEnumerator ShowMuzzleFlash()
+    {
+        muzzleFlash.enabled = true;
+        yield return new WaitForSeconds(0.2f);
+        muzzleFlash.enabled = false;
     }
 }
