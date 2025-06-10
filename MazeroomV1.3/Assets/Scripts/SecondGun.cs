@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class Gun : MonoBehaviour
+public class SecondGun : MonoBehaviour
 {
     public Camera fpsCam;
     public float range = 100f;

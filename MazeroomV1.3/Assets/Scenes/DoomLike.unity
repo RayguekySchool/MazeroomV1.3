@@ -1216,7 +1216,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7eac3d6c0cc356044a98d74f9d9d6bab, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.135
+      value: 0.364
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7eac3d6c0cc356044a98d74f9d9d6bab, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1816,7 +1816,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: afccff9f19553784ab3eb977f05fb7a3, type: 3}
   m_PrefabInstance: {fileID: 1786789529}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1568335674
+--- !u!114 &1568335677
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1825,7 +1825,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1568335672}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 983631e88e96c50468556f30cfd16d0d, type: 3}
+  m_Script: {fileID: 11500000, guid: b3577fb4095bf834ebd5f7f7498039b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   fpsCam: {fileID: 330585545}
@@ -2095,6 +2095,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AK-47
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: afccff9f19553784ab3eb977f05fb7a3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -2104,7 +2108,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: afccff9f19553784ab3eb977f05fb7a3, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1568335674}
+      addedObject: {fileID: 1568335677}
   m_SourcePrefab: {fileID: 100100000, guid: afccff9f19553784ab3eb977f05fb7a3, type: 3}
 --- !u!1 &1958965777
 GameObject:
