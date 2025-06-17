@@ -1,7 +1,10 @@
-using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using UnityEngine;
 
+[DebuggerDisplay("{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 public class MazeGenerator : MonoBehaviour
 {
     [SerializeField]
@@ -13,10 +16,9 @@ public class MazeGenerator : MonoBehaviour
     [SerializeField]
     private int _mazeDepth;
 
-    [SerializeField]
     private MazeCell[,] _mazeGrid;
 
-    IEnumerator Start()
+    void Start()
     {
         _mazeGrid = new MazeCell[_mazeWidth, _mazeDepth];
 
@@ -24,28 +26,44 @@ public class MazeGenerator : MonoBehaviour
         {
             for (int z = 0; z < _mazeDepth; z++)
             {
-                Instantiate(_mazeCellPrefab, new Vector3(x, 0, z), Quaternion.identity);
+                _mazeGrid[x, z] = Instantiate(_mazeCellPrefab, new Vector3(x, 0, z), Quaternion.identity);
             }
         }
+
+        GenerateMaze(null, _mazeGrid[0, 0]);
     }
 
-    private IEnumerator GenerateMaze(MazeCell previousCell, MazeCell currentCell)
+    private void GenerateMaze(MazeCell previousCell, MazeCell currentCell)
     {
         currentCell.Visit();
         ClearWalls(previousCell, currentCell);
+
+        MazeCell nextCell;
+
+        do
+        {
+            nextCell = GetNextUnvisitedCell(currentCell);
+
+            if (nextCell != null)
+            {
+                GenerateMaze(currentCell, nextCell);
+            }
+        } while (nextCell != null);
     }
 
-    private MazeCell GetNextUnivisitedCell(MazeCell currentCell)
+    private MazeCell GetNextUnvisitedCell(MazeCell currentCell)
     {
+        var unvisitedCells = GetUnvisitedCells(currentCell);
 
+        return unvisitedCells.OrderBy(_ => Random.Range(1, 10)).FirstOrDefault();
     }
 
-    private IEnumerable<MazeCell> GetUnivisitedCell(MazeCell currentCell)
+    private IEnumerable<MazeCell> GetUnvisitedCells(MazeCell currentCell)
     {
         int x = (int)currentCell.transform.position.x;
         int z = (int)currentCell.transform.position.z;
 
-        if(x + 1 < _mazeWidth)
+        if (x + 1 < _mazeWidth)
         {
             var cellToRight = _mazeGrid[x + 1, z];
 
@@ -59,13 +77,13 @@ public class MazeGenerator : MonoBehaviour
         {
             var cellToLeft = _mazeGrid[x - 1, z];
 
-            if(cellToLeft.IsVisited == false)
+            if (cellToLeft.IsVisited == false)
             {
                 yield return cellToLeft;
             }
         }
 
-        if(z - 1 < _mazeDepth)
+        if (z + 1 < _mazeDepth)
         {
             var cellToFront = _mazeGrid[x, z + 1];
 
@@ -75,7 +93,15 @@ public class MazeGenerator : MonoBehaviour
             }
         }
 
-        if (z - 1 >= 0) = _mazeGrid[x, z - 1]
+        if (z - 1 >= 0)
+        {
+            var cellToBack = _mazeGrid[x, z - 1];
+
+            if (cellToBack.IsVisited == false)
+            {
+                yield return cellToBack;
+            }
+        }
     }
 
     private void ClearWalls(MazeCell previousCell, MazeCell currentCell)
@@ -92,7 +118,7 @@ public class MazeGenerator : MonoBehaviour
             return;
         }
 
-        if(previousCell.transform.position.x > currentCell.transform.position.x)
+        if (previousCell.transform.position.x > currentCell.transform.position.x)
         {
             previousCell.ClearLeftWall();
             currentCell.ClearRightWall();
@@ -114,8 +140,8 @@ public class MazeGenerator : MonoBehaviour
         }
     }
 
-    void Update()
+    private string GetDebuggerDisplay()
     {
-        
+        return ToString();
     }
 }
