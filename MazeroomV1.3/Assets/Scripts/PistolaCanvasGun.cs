@@ -50,14 +50,14 @@ public class PistolaCanvasGun : MonoBehaviour
             animator.SetBool("ShootPistol", false);
             animator.SetBool("ReloadPistol", false);
         }
+        if (isReloading) return;
     }
 
 
     void Shoot()
     {
         currentAmmo--;
-        animator.SetBool("ShootPistol", true); // Ativa tiro
-        animator.SetBool("ReloadPistol", false); // Garante que não está recarregando
+        animator.SetTrigger("ShootPistol");
 
         if (!hasShotOnce)
         {
@@ -79,15 +79,15 @@ public class PistolaCanvasGun : MonoBehaviour
         }
     }
 
-    
+
     System.Collections.IEnumerator Reload()
     {
         isReloading = true;
 
-        animator.SetBool("ShootPistol", false);
-        animator.SetBool("ReloadPistol", true);
+        animator.ResetTrigger("ShootPistol"); // Garante que não entra em conflito
+        animator.SetTrigger("ReloadPistol");
 
-        yield return new WaitForSeconds(1.5f); // tempo da animação de recarga
+        yield return new WaitForSeconds(1.5f); // tempo da recarga
 
         int neededAmmo = maxAmmo - currentAmmo;
         int ammoToReload = Mathf.Min(neededAmmo, reserveAmmo);
@@ -97,8 +97,6 @@ public class PistolaCanvasGun : MonoBehaviour
 
         UpdateAmmoUI();
         isReloading = false;
-
-        animator.SetBool("ReloadPistol", false);
     }
 
     void UpdateAmmoUI()
