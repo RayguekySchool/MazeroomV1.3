@@ -72,14 +72,14 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 6805967165600350572}
-  - {fileID: 6620229302823588270}
   - {fileID: 8494045973459700644}
   - {fileID: 2026898485212950207}
-  - {fileID: 2035370560508151471}
-  - {fileID: 3942355429891608005}
+  - {fileID: 6805967165600350572}
+  - {fileID: 6620229302823588270}
   - {fileID: 2733099100461553168}
   - {fileID: 4341076011389850204}
+  - {fileID: 2035370560508151471}
+  - {fileID: 3942355429891608005}
   m_Father: {fileID: 8754492927862872444}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8513538109445466636
@@ -170,16 +170,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   walls:
-  - {fileID: 2035370560508648079}
-  - {fileID: 3942355429891379685}
   - {fileID: 2733099100461648432}
   - {fileID: 4341076011389750908}
+  - {fileID: 2035370560508648079}
+  - {fileID: 3942355429891379685}
   doors:
-  - {fileID: 6805967165600259404}
-  - {fileID: 6620229302823226766}
   - {fileID: 8494045973459277700}
   - {fileID: 2026898485212787359}
-  testStatus: 01000100
+  - {fileID: 6805967165600259404}
+  - {fileID: 6620229302823226766}
 --- !u!1001 &4551483445446049
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -850,7 +849,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: ce8cc834ba277844da67143cfc370fa8, type: 3}
       propertyPath: m_Name
-      value: Left Door
+      value: Down Door
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: ce8cc834ba277844da67143cfc370fa8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -917,7 +916,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: 9c33f225c6ee98243a57390a7235bd50, type: 3}
       propertyPath: m_Name
-      value: Up Wall
+      value: Left Wall
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 9c33f225c6ee98243a57390a7235bd50, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1046,7 +1045,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: 9c33f225c6ee98243a57390a7235bd50, type: 3}
       propertyPath: m_Name
-      value: Right Wall
+      value: Up Wall
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 9c33f225c6ee98243a57390a7235bd50, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1113,7 +1112,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: 9c33f225c6ee98243a57390a7235bd50, type: 3}
       propertyPath: m_Name
-      value: Down Wall
+      value: Right Wall
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 9c33f225c6ee98243a57390a7235bd50, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1304,7 +1303,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: 9c33f225c6ee98243a57390a7235bd50, type: 3}
       propertyPath: m_Name
-      value: Left Wall
+      value: Down Wall
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 9c33f225c6ee98243a57390a7235bd50, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1316,7 +1315,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 9c33f225c6ee98243a57390a7235bd50, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 9c33f225c6ee98243a57390a7235bd50, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1565,7 +1564,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: ce8cc834ba277844da67143cfc370fa8, type: 3}
       propertyPath: m_Name
-      value: Down Door
+      value: Right Door
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: ce8cc834ba277844da67143cfc370fa8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1702,7 +1701,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: ce8cc834ba277844da67143cfc370fa8, type: 3}
       propertyPath: m_Name
-      value: Up Door
+      value: Left Door
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: ce8cc834ba277844da67143cfc370fa8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2033,7 +2032,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: ce8cc834ba277844da67143cfc370fa8, type: 3}
       propertyPath: m_Name
-      value: Right Door
+      value: Up Door
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: ce8cc834ba277844da67143cfc370fa8, type: 3}
       propertyPath: m_LocalPosition.x
