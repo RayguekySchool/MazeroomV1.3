@@ -150,7 +150,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomPrefabs:
   - {fileID: 2067039860188209032, guid: aba56431600770f489475c03f117c04a, type: 3}
-  maxRooms: 100
+  maxRooms: 5
 --- !u!4 &107906553
 Transform:
   m_ObjectHideFlags: 0
