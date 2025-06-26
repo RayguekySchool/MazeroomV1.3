@@ -5,6 +5,7 @@ public class PlayerMove : MonoBehaviour
 {
     public float playerSpeed = 10f;
     public float momentumDamping = 5f;
+    public float health = 100f;
 
     private CharacterController characterController;
     public Animator camAnim;
