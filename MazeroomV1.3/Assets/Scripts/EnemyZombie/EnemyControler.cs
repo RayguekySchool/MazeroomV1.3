@@ -1,20 +1,33 @@
 using System.Collections;
+<<<<<<< HEAD
+=======
+using System.Collections.Generic;
+>>>>>>> 4835158fd4a09d858bf5e9f664fa258410ebb394
 using UnityEngine;
 using UnityEngine.AI;
 
 public class EnemyControler : MonoBehaviour
 {
+<<<<<<< HEAD
     private PlayerMove player;
     private NavMeshAgent nav;
 
     private Coroutine damageCoroutine;
 
+=======
+
+    PlayerMove player;
+    NavMeshAgent nav;
+
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+>>>>>>> 4835158fd4a09d858bf5e9f664fa258410ebb394
     void Start()
     {
         player = FindObjectOfType<PlayerMove>();
         nav = GetComponent<NavMeshAgent>();
     }
 
+<<<<<<< HEAD
     void Update()
     {
         if (player != null)
@@ -52,3 +65,11 @@ public class EnemyControler : MonoBehaviour
         }
     }
 }
+=======
+    // Update is called once per frame
+    void Update()
+    {
+        nav.SetDestination(player.transform.position);
+    }
+}
+>>>>>>> 4835158fd4a09d858bf5e9f664fa258410ebb394
