@@ -43,8 +43,21 @@ public class PlayerHealth : MonoBehaviour
     private void Die()
     {
         Debug.Log("Player morreu!");
+        DeleteSliderFillArea();
         // Aqui você pode adicionar animação, respawn ou Game Over
         // Exemplo: Destroy(gameObject);
+    }
+
+    private void DeleteSliderFillArea()
+    {
+        if (healthSlider != null)
+        {
+            Transform fillArea = healthSlider.transform.Find("Fill Area");
+            if (fillArea != null)
+            {
+                Destroy(fillArea.gameObject);
+            }
+        }
     }
 
     // Método para curar o jogador (opcional)
