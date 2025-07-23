@@ -1,15 +1,16 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InventoryManager : MonoBehaviour
+public class InventoryController : MonoBehaviour
 {
     public Objects[] slots;
     public Image[] slotImages;
     public int[] slotAmount;
 
+    private InterfaceController iController;
     void Start()
     {
-        
+        iController = FindObjectOfType<InterfaceController>();
     }
 
     void Update()
@@ -20,6 +21,8 @@ public class InventoryManager : MonoBehaviour
         {
             if (hit.collider.tag == "Object")
             {
+                iController.itemText.text = "Press E to pick up " + hit.transform.GetComponent<ObjectType>().objecType.itemName;
+
                 if (Input.GetKeyDown(KeyCode.E))
                 {
                     for (int i = 0; i < slots.Length; i++)
