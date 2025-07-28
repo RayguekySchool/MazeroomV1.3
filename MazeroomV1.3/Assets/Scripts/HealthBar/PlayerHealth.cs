@@ -39,6 +39,20 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
+    private void DisableMouseLookAndUnlockCursor()
+    {
+        // Unlock and show the cursor
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
+        // Disable the MouseLook script if present
+        MouseLook mouseLook = FindObjectOfType<MouseLook>();
+        if (mouseLook != null)
+        {
+            mouseLook.enabled = false;
+        }
+    }
+
     // Método chamado quando o jogador morre
     private void Die()
     {
@@ -46,6 +60,14 @@ public class PlayerHealth : MonoBehaviour
         DeleteSliderFillArea();
         // Aqui você pode adicionar animação, respawn ou Game Over
         // Exemplo: Destroy(gameObject);
+        // Ativa a tela de derrota e congela o jogo
+        LoseScreen loseScreen = FindObjectOfType<LoseScreen>();
+        if (loseScreen != null)
+        {
+            loseScreen.ShowLoseScreen();
+        }
+
+        DisableMouseLookAndUnlockCursor();
     }
 
     private void DeleteSliderFillArea()
