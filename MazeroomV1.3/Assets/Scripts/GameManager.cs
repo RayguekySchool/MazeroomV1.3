@@ -1,69 +1,44 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using TMPro;
+using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
-    public int CoinsOnTheLevel;
-    public AudioSource coinSound;
-    public string NameOfTheNextLevel;
-    public TextMeshProUGUI coinCounterText;
-    private int collectedCoins = 0;
-
-    public GameObject pauseMenu;
-
     void Start()
     {
-        UpdateCoinUI();
-        if (pauseMenu != null)
-        {
-            pauseMenu.SetActive(false);
-        }
+
     }
 
     void Update()
     {
 
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            TogglePauseMenu();
-        }
-    }
-
-    public void DiscountCoin()
-    {
-        collectedCoins += 1;
-        CoinsOnTheLevel -= 1;
-        coinSound.Play();
-        UpdateCoinUI();
-
-        if (CoinsOnTheLevel <= 0)
-        {
-            SceneManager.LoadScene(NameOfTheNextLevel);
-        }
     }
 
     public void Restart()
     {
+        StartCoroutine(DisableAndReactivatePlayerHealth());
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    private void UpdateCoinUI()
+    // Função genérica para desativar um script do tipo T
+    private void DisableScriptOnReset<T>() where T : MonoBehaviour
     {
-        if (coinCounterText != null)
+        T script = FindObjectOfType<T>();
+        if (script != null)
         {
-            coinCounterText.text = collectedCoins + "/" + (collectedCoins + CoinsOnTheLevel);
+            script.enabled = false;
         }
     }
 
-
-    private void TogglePauseMenu()
+    // Coroutine para desativar e reativar o PlayerHealth
+    private IEnumerator DisableAndReactivatePlayerHealth()
     {
-        if (pauseMenu != null)
+        PlayerHealth playerHealth = FindObjectOfType<PlayerHealth>();
+        if (playerHealth != null)
         {
-            bool isActive = pauseMenu.activeSelf;
-            pauseMenu.SetActive(!isActive);
-            Time.timeScale = isActive ? 1 : 0;
+            playerHealth.enabled = false;
+            yield return new WaitForSeconds(2f);
+            playerHealth.enabled = true;
         }
     }
 }

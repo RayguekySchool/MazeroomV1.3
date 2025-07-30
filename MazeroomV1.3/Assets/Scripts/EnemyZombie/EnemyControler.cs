@@ -28,10 +28,10 @@ public class EnemyControler : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            HealthBar2 healthBar = collision.gameObject.GetComponent<HealthBar2>();
-            if (healthBar != null)
+            PlayerHealth playerHealth = collision.gameObject.GetComponent<PlayerHealth>();
+            if (playerHealth != null)
             {
-                damageCoroutine = StartCoroutine(DealDamageOverTime(healthBar));
+                damageCoroutine = StartCoroutine(DealDamageOverTime(playerHealth));
             }
         }
     }
@@ -44,11 +44,11 @@ public class EnemyControler : MonoBehaviour
         }
     }
 
-    IEnumerator DealDamageOverTime(HealthBar2 healthBar)
+    IEnumerator DealDamageOverTime(PlayerHealth playerHealth)
     {
         while (true)
         {
-            healthBar.ChangeHealth(-10f);
+            playerHealth.TakeDamage(10);
             yield return new WaitForSeconds(2f);
         }
     }

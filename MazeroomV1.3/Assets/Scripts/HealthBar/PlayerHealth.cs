@@ -10,13 +10,16 @@ public class PlayerHealth : MonoBehaviour
     [Header("UI Settings")]
     public Slider healthSlider;
 
+    // Flag estática para controlar a exibição da mensagem
+    private static bool hasDied = false;
+
     void Start()
     {
         currentHealth = maxHealth;
         UpdateHealthUI();
+        hasDied = false; // Reset flag ao iniciar a cena
     }
 
-    // Método para receber dano
     public void TakeDamage(int amount)
     {
         currentHealth -= amount;
@@ -25,12 +28,10 @@ public class PlayerHealth : MonoBehaviour
 
         if (currentHealth <= 0)
         {
-            
             Die();
         }
     }
 
-    // Atualiza o slider da UI
     private void UpdateHealthUI()
     {
         if (healthSlider != null)
@@ -41,11 +42,9 @@ public class PlayerHealth : MonoBehaviour
 
     private void DisableMouseLookAndUnlockCursor()
     {
-        // Unlock and show the cursor
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
 
-        // Disable the MouseLook script if present
         MouseLook mouseLook = FindObjectOfType<MouseLook>();
         if (mouseLook != null)
         {
@@ -53,14 +52,15 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
-    // Método chamado quando o jogador morre
     private void Die()
     {
-        Debug.Log("Player morreu!");
+        if (!hasDied)
+        {
+            Debug.Log("You die!");
+            hasDied = true;
+        }
         DeleteSliderFillArea();
-        // Aqui você pode adicionar animação, respawn ou Game Over
-        // Exemplo: Destroy(gameObject);
-        // Ativa a tela de derrota e congela o jogo
+
         LoseScreen loseScreen = FindObjectOfType<LoseScreen>();
         if (loseScreen != null)
         {
@@ -82,7 +82,6 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
-    // Método para curar o jogador (opcional)
     public void Heal(int amount)
     {
         currentHealth += amount;
