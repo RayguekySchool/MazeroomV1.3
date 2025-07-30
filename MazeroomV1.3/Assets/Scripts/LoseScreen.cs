@@ -9,7 +9,7 @@ public class LoseScreen : MonoBehaviour
         if (loseCanvas != null)
         {
             loseCanvas.SetActive(true);
-            Time.timeScale = 0f;
+            Time.timeScale = 1f;
         }
     }
 }
