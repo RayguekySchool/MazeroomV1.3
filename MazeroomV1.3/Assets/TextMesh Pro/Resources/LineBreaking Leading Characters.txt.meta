@@ -6,3 +6,10 @@ TextScriptImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 310858
+  packageName: Maze Generator V
+  packageVersion: 1.2.2
+  assetPath: Assets/TextMesh Pro/Resources/LineBreaking Leading Characters.txt
+  uploadId: 750335
