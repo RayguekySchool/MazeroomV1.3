@@ -6,6 +6,7 @@ public class EnemyControler : MonoBehaviour
 {
     private PlayerMove player;
     private NavMeshAgent nav;
+    public Animator animator; // Added Animator reference
 
     private Coroutine damageCoroutine;
 
@@ -14,6 +15,7 @@ public class EnemyControler : MonoBehaviour
     {
         player = FindObjectOfType<PlayerMove>();
         nav = GetComponent<NavMeshAgent>();
+        animator = GetComponent<Animator>(); // Get Animator component
     }
 
     void Update()
@@ -21,6 +23,10 @@ public class EnemyControler : MonoBehaviour
         if (player != null)
         {
             nav.SetDestination(player.transform.position);
+
+            // Check if enemy is moving
+            bool isMoving = nav.velocity.magnitude > 0.1f;
+            animator.SetBool("isWalking", isMoving); // Trigger walking animation
         }
     }
 
