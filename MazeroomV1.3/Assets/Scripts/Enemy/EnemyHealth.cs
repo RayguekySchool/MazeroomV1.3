@@ -8,10 +8,13 @@ public class EnemyHealth : MonoBehaviour
     {
         public string bulletType;
         public int bulletsToKill;
+        public int kills;
     }
 
     public List<BulletResistance> resistances;
     private Dictionary<string, int> bulletHits = new Dictionary<string, int>();
+
+    public static int kills = 0;
 
     void Start()
     {
@@ -36,6 +39,7 @@ public class EnemyHealth : MonoBehaviour
 
     void Die()
     {
-        Destroy(gameObject); // ou coloque animação de morte aqui
+        Destroy(gameObject);
+        kills += 1;
     }
 }
