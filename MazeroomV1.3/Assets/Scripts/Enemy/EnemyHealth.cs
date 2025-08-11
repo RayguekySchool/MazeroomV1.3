@@ -39,6 +39,8 @@ public class EnemyHealth : MonoBehaviour
 
     void Die()
     {
+        UImanager.instance.killCounter++;
+        UImanager.instance.UpdateKillCounter(kills);
         Destroy(gameObject);
         kills += 1;
     }

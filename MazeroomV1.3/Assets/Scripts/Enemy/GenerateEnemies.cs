@@ -9,19 +9,11 @@ public class GenerateEnemies : MonoBehaviour
     public int xPos;
     public int zPos;
     public int enemyCount;
-    public int kills;
-    public TextMeshProUGUI killCounter;
 
     void Start()
     {
         StartCoroutine(EnemyDrop());
     }
-
-    private void Update()
-    {
-        killCounter.text = kills.ToString("0");
-    }
-
     IEnumerator EnemyDrop()
     {
         while (enemyCount < 10)
