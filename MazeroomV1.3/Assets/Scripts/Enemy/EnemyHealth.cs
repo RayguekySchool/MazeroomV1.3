@@ -11,6 +11,7 @@ public class EnemyHealth : MonoBehaviour
         public int kills;
     }
 
+    public ParticleSystem deathParticles;
     public List<BulletResistance> resistances;
     private Dictionary<string, int> bulletHits = new Dictionary<string, int>();
 
@@ -41,6 +42,7 @@ public class EnemyHealth : MonoBehaviour
     {
         UImanager.instance.killCounter++;
         UImanager.instance.UpdateKillCounter(kills);
+        Instantiate(deathParticles, transform.position, Quaternion.identity);
         Destroy(gameObject);
         kills += 1;
     }
