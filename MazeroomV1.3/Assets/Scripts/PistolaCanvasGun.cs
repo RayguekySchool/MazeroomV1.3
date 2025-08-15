@@ -71,6 +71,13 @@ public class PistolaCanvasGun : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range))
         {
+            Debug.Log("Hit: " + hit.transform.name);
+
+            if (hit.transform.tag == "EnemyBody" || hit.transform.tag == "EnemyLarm" || hit.transform.tag == "EnemyRarm" || hit.transform.tag == "EnemyLleg" || hit.transform.tag == "EnemyRleg")
+            {
+                hit.transform.SendMessage("Detected");
+            }
+            
             EnemyHealth enemy = hit.transform.GetComponent<EnemyHealth>();
             if (enemy != null)
             {
