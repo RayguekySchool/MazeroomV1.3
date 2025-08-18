@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -6,24 +6,36 @@ using TMPro;
 public class GenerateEnemies : MonoBehaviour
 {
     public GameObject theEnemy;
-    public int xPos;
-    public int zPos;
     public int enemyCount;
+    public int maxEnemies;
+    public Vector2 spawnXRange;
+    public Vector2 spawnZRange;
 
+    private Transform spawnPoint;
 
     void Start()
     {
+        spawnPoint = transform;
         StartCoroutine(EnemyDrop());
     }
+
     IEnumerator EnemyDrop()
     {
-        while (enemyCount < 10)
+        while (enemyCount < maxEnemies)
         {
-            xPos = Random.Range(-40, -15);
-            zPos = Random.Range(-8, -35);
-            Instantiate(theEnemy, new Vector3(xPos, 0, zPos), Quaternion.identity);
+            float xPos = Random.Range(spawnXRange.x, spawnXRange.y);
+            float zPos = Random.Range(spawnZRange.x, spawnZRange.y);
+
+            Vector3 spawnPosition = spawnPoint.position + new Vector3(xPos, 0, zPos);
+
+            Instantiate(theEnemy, spawnPosition, Quaternion.identity);
             yield return new WaitForSeconds(0.1f);
-            enemyCount += 1;
+            enemyCount++;
         }
+    }
+
+    public void SetSpawnerPosition(Vector3 newPosition)
+    {
+        spawnPoint.position = newPosition;
     }
 }
