@@ -57,6 +57,8 @@ public class PistolaCanvasGun : MonoBehaviour
     void Shoot()
     {
         currentAmmo--;
+        animator.SetBool("ShootPistol", true); // Ativa tiro
+        animator.SetBool("ReloadPistol", false); // Garante que não está recarregando
         animator.SetTrigger("ShootPistol");
 
         if (!hasShotOnce)
@@ -71,13 +73,6 @@ public class PistolaCanvasGun : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range))
         {
-            Debug.Log("Hit: " + hit.transform.name);
-
-            if (hit.transform.tag == "EnemyBody" || hit.transform.tag == "EnemyLarm" || hit.transform.tag == "EnemyRarm" || hit.transform.tag == "EnemyLleg" || hit.transform.tag == "EnemyRleg")
-            {
-                hit.transform.SendMessage("Detected");
-            }
-            
             EnemyHealth enemy = hit.transform.GetComponent<EnemyHealth>();
             if (enemy != null)
             {
@@ -87,13 +82,17 @@ public class PistolaCanvasGun : MonoBehaviour
     }
 
 
+
     System.Collections.IEnumerator Reload()
     {
         isReloading = true;
 
+        animator.SetBool("ShootPistol", false);
+        animator.SetBool("ReloadPistol", true);
         animator.ResetTrigger("ShootPistol"); // Garante que não entra em conflito
         animator.SetTrigger("ReloadPistol");
 
+        yield return new WaitForSeconds(1.5f); // tempo da animação de recarga
         yield return new WaitForSeconds(1.5f); // tempo da recarga
 
         int neededAmmo = maxAmmo - currentAmmo;
@@ -104,6 +103,8 @@ public class PistolaCanvasGun : MonoBehaviour
 
         UpdateAmmoUI();
         isReloading = false;
+
+        animator.SetBool("ReloadPistol", false);
     }
 
     void UpdateAmmoUI()

@@ -125,9 +125,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c87c495124bd5f4792eb28bc2afa2f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deathParticles: {fileID: 9154987714805612551, guid: 1b9086b141cc6164ab409c409c039713, type: 3}
   resistances:
   - bulletType: Pistol
     bulletsToKill: 10
+    kills: 1
 --- !u!114 &5990311498247767569
 MonoBehaviour:
   m_ObjectHideFlags: 0

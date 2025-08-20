@@ -38,30 +38,6 @@ public class EnemyHealth : MonoBehaviour
         }
     }
 
-    public void Detected()
-    {
-        if (transform.tag == "EnemyBody")
-        {
-            Debug.Log("Body");
-        }
-        if (transform.tag == "EnemyLarm")
-        {
-            Debug.Log("LeftArm");
-        }
-        if (transform.tag == "EnemyRarm")
-        {
-            Debug.Log("RightArm");
-        }
-        if (transform.tag == "EnemyLleg")
-        {
-            Debug.Log("LeftLeg");
-        }
-        if (transform.tag == "EnemyRleg")
-        {
-            Debug.Log("RightLeg");
-        }
-    }
-
     public void Die()
     {
         UImanager.instance.killCounter++;
