@@ -108,9 +108,6 @@ PrefabInstance:
       addedObject: {fileID: 3338410049785081565}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 77a090b2305591b42a02c1962b7f05c1, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 3060586927044783456}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 77a090b2305591b42a02c1962b7f05c1, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 3326323083649603398}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 77a090b2305591b42a02c1962b7f05c1, type: 3}
       insertIndex: -1
@@ -118,9 +115,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 77a090b2305591b42a02c1962b7f05c1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3513184250458869967}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 77a090b2305591b42a02c1962b7f05c1, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 3211712103194314788}
   m_SourcePrefab: {fileID: 100100000, guid: 77a090b2305591b42a02c1962b7f05c1, type: 3}
 --- !u!95 &3597530294019749259 stripped
 Animator:
@@ -159,23 +153,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deathParticles: {fileID: 9154987714805612551, guid: c432d2c7762cce44da0578f2e3ce50a0, type: 3}
   resistances:
-  - bulletType: PistolBullet
+  - bulletType: Pistol
     bulletsToKill: 5
     kills: 1
---- !u!114 &3060586927044783456
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7802207928669009227}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c87c495124bd5f4792eb28bc2afa2f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  deathParticles: {fileID: 0}
-  resistances: []
 --- !u!114 &3326323083649603398
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -234,16 +214,3 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &3211712103194314788
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7802207928669009227}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 680c1d12c7c94c446a51da3e62969118, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyHealth: 100

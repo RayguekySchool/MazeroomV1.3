@@ -7,7 +7,7 @@ public class EnemyControler : MonoBehaviour
     private PlayerMove player;
     private NavMeshAgent nav;
     public Animator animator; // Added Animator reference
-
+    private WaveSpawners waveSpawners; // Reference to WaveSpawners component
     private Coroutine damageCoroutine;
 
     [System.Obsolete]
@@ -16,6 +16,7 @@ public class EnemyControler : MonoBehaviour
         player = FindObjectOfType<PlayerMove>();
         nav = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>(); // Get Animator component
+        waveSpawners = GetComponentInParent<WaveSpawners>(); // Get WaveSpawners component from parent
     }
 
     void Update()
@@ -28,7 +29,17 @@ public class EnemyControler : MonoBehaviour
             bool isMoving = nav.velocity.magnitude > 0.1f;
             animator.SetBool("isWalking", isMoving); // Trigger walking animation
         }
-    }
+
+        transform.Translate(transform.forward * speed * Time.deltaTime);
+
+        countdown -= Time.deltaTime;
+
+        if (countdown <= 0)
+        {
+            Destroy(gameObject);
+
+            waveSpawner.waves[waveSpawner.currentWaveIndex].enemiesLeft--;
+        }
 
     void OnCollisionEnter(Collision collision)
     {

@@ -1,30 +1,74 @@
-using System.Runtime.CompilerServices;
 using UnityEngine;
-
+using System.Collections;
 public class WaveSpawners : MonoBehaviour
 {
     [SerializeField] private float countdown;
+    [SerializeField] private GameObject spawnPoint;
 
-    private void Update()
+    public Wave[] waves;
+    public int currentWaveIndex = 0;
+
+    private bool readyToCountDown;
+    private void Start()
     {
-        countdown -= Time.deltaTime;
+        readyToCountDown = true;
 
-        if (countdown <= 0f)
+        for (int i = 0; i < waves.Length; i++)
         {
-            SpawnWave();
-          
+            waves[i].enemiesLeft = waves[i].enemies.Length;
         }
     }
-
-    private void SpawnWave()
+    private void Update()
     {
-       
+        if (currentWaveIndex >= waves.Length)
+        {
+            Debug.Log("You survived every wave!");
+            return;
+        }
+
+        if (readyToCountDown == true)
+        {
+            countdown -= Time.deltaTime;
+        }
+
+        if (countdown <= 0)
+        {
+            readyToCountDown = false;
+
+            countdown = waves[currentWaveIndex].timeToNextWave;
+
+            StartCoroutine(SpawnWave());
+        }
+
+        if (waves[currentWaveIndex].enemiesLeft == 0)
+        {
+            readyToCountDown = true;
+
+            currentWaveIndex++;
+        }
+    }
+    private IEnumerator SpawnWave()
+    {
+        if (currentWaveIndex < waves.Length)
+        {
+            for (int i = 0; i < waves[currentWaveIndex].enemies.Length; i++)
+            {
+                EnemyControler enemy = Instantiate(waves[currentWaveIndex].enemies[i], spawnPoint.transform);
+
+                enemy.transform.SetParent(spawnPoint.transform);
+
+                yield return new WaitForSeconds(waves[currentWaveIndex].timeToNextEnemy);
+            }
+        }
     }
 }
 
 [System.Serializable]
-
 public class Wave
 {
-    
+    public EnemyControler[] enemies;
+    public float timeToNextEnemy;
+    public float timeToNextWave;
+
+    [HideInInspector] public int enemiesLeft;
 }
