@@ -7,7 +7,6 @@ public class EnemyControler : MonoBehaviour
     private PlayerMove player;
     private NavMeshAgent nav;
     public Animator animator; // Added Animator reference
-    private WaveSpawners waveSpawners; // Reference to WaveSpawners component
     private Coroutine damageCoroutine;
 
     [System.Obsolete]
@@ -16,7 +15,6 @@ public class EnemyControler : MonoBehaviour
         player = FindObjectOfType<PlayerMove>();
         nav = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>(); // Get Animator component
-        waveSpawners = GetComponentInParent<WaveSpawners>(); // Get WaveSpawners component from parent
     }
 
     void Update()
@@ -30,43 +28,33 @@ public class EnemyControler : MonoBehaviour
             animator.SetBool("isWalking", isMoving); // Trigger walking animation
         }
 
-        transform.Translate(transform.forward * speed * Time.deltaTime);
-
-        countdown -= Time.deltaTime;
-
-        if (countdown <= 0)
+        void OnCollisionEnter(Collision collision)
         {
-            Destroy(gameObject);
-
-            waveSpawner.waves[waveSpawner.currentWaveIndex].enemiesLeft--;
-        }
-
-    void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            PlayerHealth playerHealth = collision.gameObject.GetComponent<PlayerHealth>();
-            if (playerHealth != null)
+            if (collision.gameObject.CompareTag("Player"))
             {
-                damageCoroutine = StartCoroutine(DealDamageOverTime(playerHealth));
+                PlayerHealth playerHealth = collision.gameObject.GetComponent<PlayerHealth>();
+                if (playerHealth != null)
+                {
+                    damageCoroutine = StartCoroutine(DealDamageOverTime(playerHealth));
+                }
             }
         }
-    }
 
-    void OnCollisionExit(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Player") && damageCoroutine != null)
+        void OnCollisionExit(Collision collision)
         {
-            StopCoroutine(damageCoroutine);
+            if (collision.gameObject.CompareTag("Player") && damageCoroutine != null)
+            {
+                StopCoroutine(damageCoroutine);
+            }
         }
-    }
 
-    IEnumerator DealDamageOverTime(PlayerHealth playerHealth)
-    {
-        while (true)
+        IEnumerator DealDamageOverTime(PlayerHealth playerHealth)
         {
-            playerHealth.TakeDamage(10);
-            yield return new WaitForSeconds(2f);
+            while (true)
+            {
+                playerHealth.TakeDamage(10);
+                yield return new WaitForSeconds(2f);
+            }
         }
     }
 }

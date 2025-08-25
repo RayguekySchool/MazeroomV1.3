@@ -18,6 +18,9 @@ public class PistolaCanvasGun : MonoBehaviour
     private bool isReloading = false;
     private bool hasShotOnce = false;
 
+    // Public reload time variable
+    public float reloadTime = 1.5f;
+
     void Start()
     {
         currentAmmo = maxAmmo;
@@ -81,7 +84,11 @@ public class PistolaCanvasGun : MonoBehaviour
         }
     }
 
-
+    // Public method to set reload time
+    public void SetReloadTime(float newReloadTime)
+    {
+        reloadTime = newReloadTime;
+    }
 
     System.Collections.IEnumerator Reload()
     {
@@ -92,8 +99,8 @@ public class PistolaCanvasGun : MonoBehaviour
         animator.ResetTrigger("ShootPistol"); // Garante que não entra em conflito
         animator.SetTrigger("ReloadPistol");
 
-        yield return new WaitForSeconds(1.5f); // tempo da animação de recarga
-        yield return new WaitForSeconds(1.5f); // tempo da recarga
+        yield return new WaitForSeconds(reloadTime); // tempo da animação de recarga
+        yield return new WaitForSeconds(reloadTime); // tempo da recarga
 
         int neededAmmo = maxAmmo - currentAmmo;
         int ammoToReload = Mathf.Min(neededAmmo, reserveAmmo);
