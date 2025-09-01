@@ -17,12 +17,26 @@ public class EnemyHealth : MonoBehaviour
 
     public static int kills = 0;
 
+    [SerializeField] private HealthBarCanva healthBar;
+    [SerializeField] private float maxHealth = 100f;
+    private float health;
+
+    private Rigidbody rb;
+
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody>();
+        healthBar = GetComponentInChildren<HealthBarCanva>();
+        health = maxHealth;
+    }
+
     void Start()
     {
         foreach (var res in resistances)
         {
             bulletHits[res.bulletType] = 0;
         }
+        healthBar.UpdateHealthBar(health, maxHealth);
     }
 
     public void TakeBullet(string bulletType)
@@ -32,7 +46,14 @@ public class EnemyHealth : MonoBehaviour
         bulletHits[bulletType]++;
         int needed = resistances.Find(x => x.bulletType == bulletType).bulletsToKill;
 
-        if (bulletHits[bulletType] >= needed)
+        // Reduce health based on bullet type (example: each bullet reduces by maxHealth / bulletsToKill)
+        float damage = maxHealth / needed;
+        health -= damage;
+        health = Mathf.Clamp(health, 0, maxHealth);
+
+        healthBar.UpdateHealthBar(health, maxHealth);
+
+        if (bulletHits[bulletType] >= needed || health <= 0)
         {
             Die();
         }
