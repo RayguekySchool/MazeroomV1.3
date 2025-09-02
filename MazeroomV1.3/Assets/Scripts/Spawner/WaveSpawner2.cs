@@ -43,7 +43,6 @@ public class WaveSpawner2 : MonoBehaviour
         {
             if(!EnemyIsAlive())
             {
-                //Begin a new round
                 Debug.Log("Wave Completed!");
             }
             else
@@ -56,7 +55,6 @@ public class WaveSpawner2 : MonoBehaviour
         {
             if (state != SpawnState.SPAWNING)
             {
-                //Start spawning wave
                 StartCoroutine(SpawnWave(waves[nextWave]));
             }
         }
@@ -105,14 +103,19 @@ public class WaveSpawner2 : MonoBehaviour
 
         for (int i = 0; i < _wave.count; i++)
         {
-            SpawnEnemy(_wave.enemy);
+            // Alternate between enemy and enemy2
+            if (i % 2 == 0 && _wave.enemy != null)
+            {
+                SpawnEnemy(_wave.enemy);
+            }
+            else if (_wave.enemy2 != null)
+            {
+                SpawnEnemy(_wave.enemy2);
+            }
             yield return new WaitForSeconds(1f / _wave.rate);
         }
 
-        //spawn
-
         state = SpawnState.WAITING;
-
         yield break;
     }
 
@@ -122,5 +125,4 @@ public class WaveSpawner2 : MonoBehaviour
         Transform _sp = spawnPoint[Random.Range(0, spawnPoint.Length)];
         Instantiate(_enemy, _sp.position, _sp.rotation);
     }
-
 }
