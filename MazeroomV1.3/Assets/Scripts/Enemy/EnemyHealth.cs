@@ -15,13 +15,17 @@ public class EnemyHealth : MonoBehaviour
     public List<BulletResistance> resistances;
     private Dictionary<string, int> bulletHits = new Dictionary<string, int>();
 
-    public static int kills = 0;
+    public static int kills1 = 0;
+    public static int kills2 = 0;
 
     [SerializeField] private HealthBarCanva healthBar;
     [SerializeField] private float maxHealth = 100f;
     private float health;
 
     private Rigidbody rb;
+
+    // Adicione um campo para identificar qual killCounter atualizar
+    [SerializeField] private int killCounterIndex = 1; // 1 ou 2
 
     private void Awake()
     {
@@ -61,10 +65,17 @@ public class EnemyHealth : MonoBehaviour
 
     public void Die()
     {
-        UImanager.instance.killCounter++;
-        UImanager.instance.UpdateKillCounter(kills);
+        if (killCounterIndex == 1)
+        {
+            kills1++;
+            UImanager.instance.UpdateKillCounter1(kills1);
+        }
+        else
+        {
+            kills2++;
+            UImanager.instance.UpdateKillCounter2(kills2);
+        }
         Instantiate(deathParticles, transform.position, Quaternion.identity);
         Destroy(gameObject);
-        kills += 1;
     }
 }
