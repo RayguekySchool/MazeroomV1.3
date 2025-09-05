@@ -21,11 +21,14 @@ public class PistolaCanvasGun : MonoBehaviour
     // Public reload time variable
     public float reloadTime = 1.5f;
 
+    public AudioSource p_shootSound;
+
     void Start()
     {
         currentAmmo = maxAmmo;
         if (ammoText != null)
             ammoText.gameObject.SetActive(false); // Esconde o contador no início
+        p_shootSound = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -45,6 +48,7 @@ public class PistolaCanvasGun : MonoBehaviour
         if (Input.GetButtonDown("Fire1") && Time.time >= nextTimeToFire && currentAmmo > 0)
         {
             nextTimeToFire = Time.time + fireRate;
+            p_shootSound.Play();
             Shoot();
         }
         else
