@@ -5,43 +5,21 @@ using UnityEngine.UI;
 
 public class SceneLoader : MonoBehaviour
 {
-    [Header("Scene Names (as in Build Settings)")]
-    public string sceneA;
-    public string sceneB;
+    public static SceneLoader instance;
+    [SerializeField] Animator transitionAnim;
 
-    [Header("UI Elements")]
-    public Slider progressBar;
-
-    /// <summary>
-    /// Chame este método para carregar a Scene A.
-    /// </summary>
-    public void LoadSceneA()
+    private void Awake();
+    
+    public void NextLevel()
     {
-        StartCoroutine(LoadSceneAsync(sceneA));
+        StartCoroutine(LoadLevel());
     }
 
-    /// <summary>
-    /// Chame este método para carregar a Scene B.
-    /// </summary>
-    public void LoadSceneB()
+    IEnumerator LoadLevel()
     {
-        StartCoroutine(LoadSceneAsync(sceneB));
-    }
-
-    private IEnumerator LoadSceneAsync(string sceneName)
-    {
-        if (progressBar != null)
-            progressBar.value = 0f;
-
-        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);
-
-        while (!operation.isDone)
-        {
-            float progress = Mathf.Clamp01(operation.progress / 0.9f);
-            if (progressBar != null)
-                progressBar.value = progress;
-
-            yield return null;
-        }
+        transitionAnim.SetTrigger("End");
+        yield return new WaitForSeconds(1);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        transitionAnim.SetTrigger("Start");
     }
 }
