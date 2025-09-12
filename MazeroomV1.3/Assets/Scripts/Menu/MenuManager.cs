@@ -1,19 +1,18 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Menu_Manager : MonoBehaviour
 {
-    public string nameOfTheLevel1;
-    public string nameOfTheLevel2;
-    public string nameOfTheLevel3;
-    public string nameOfTheLevel4;
-    public string nameOfTheLevel5;
+    public string DoomLike;
     public GameObject MainMenuPanel;
     public GameObject MenuPanelOptions;
     public GameObject SelectLevelPanel;
     public GameObject EventSystemMainMenu;
     public GameObject EventSystemOptions;
     public GameObject EventSystemMenuLevelSelect;
+    public Animator transitionAnimator;
+
     public void OpenPlay()
     {
         MainMenuPanel.SetActive(false);
@@ -32,27 +31,17 @@ public class Menu_Manager : MonoBehaviour
 
     public void SelectLevel1()
     {
-        SceneManager.LoadScene(nameOfTheLevel1);
+        StartCoroutine(PlayTransitionAndLoad());
     }
 
-    public void SelectLevel2()
+    private IEnumerator PlayTransitionAndLoad()
     {
-        SceneManager.LoadScene(nameOfTheLevel2);
-    }
-
-    public void SelectLevel3()
-    {
-        SceneManager.LoadScene(nameOfTheLevel3);
-    }
-
-    public void SelectLevel4()
-    {
-        SceneManager.LoadScene(nameOfTheLevel4);
-    }
-
-    public void SelectLevel5()
-    {
-        SceneManager.LoadScene(nameOfTheLevel5);
+        if (transitionAnimator != null)
+        {
+            transitionAnimator.SetTrigger("Start");
+        }
+        yield return new WaitForSeconds(1f);
+        SceneManager.LoadScene(DoomLike);
     }
 
     public void OpenOptions()
