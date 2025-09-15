@@ -11,6 +11,8 @@ TagManager:
   - EnemyLarm
   - EnemyRarm
   - Enemy
+  - OutTrans
+  - InTrans
   layers:
   - Default
   - TransparentFX
