@@ -113,4 +113,5 @@ public class Enemy
 {
     public GameObject enemyPrefab;
     public int cost;
+    internal System.Action onDeath;
 }

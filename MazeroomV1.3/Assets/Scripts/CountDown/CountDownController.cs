@@ -1,23 +1,54 @@
-using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 
 public class CountDownController : MonoBehaviour
 {
-    public int countDownTime;
-    public Text countDownDisplay;
+    [Header("Timer Configure")]
+    [Tooltip("Initial Time")]
+    public float tempoInicial = 10f;
 
-    IEnumerator CountDownToStart()
+    [Header("Reference")]
+    public TextMeshProUGUI textTMP;
+
+    public TextMeshProUGUI initialText;
+
+    private float tempoRestante;
+
+    void Start()
     {
-        while (countDownTime > 0)
+        tempoRestante = tempoInicial;
+
+        if (textTMP != null)
         {
-            countDownDisplay.text = countDownTime.ToString();
-
-            yield return new WaitForSeconds(1f);
-
-            countDownTime--;
+            textTMP.text = Mathf.CeilToInt(tempoRestante).ToString();
         }
+    }
 
-        countdownDisplay.text = "Go";
+    void Update()
+    {
+        if (tempoRestante > 0)
+        {
+            tempoRestante -= Time.deltaTime;
+
+            if (textTMP != null)
+            {
+                textTMP.text = Mathf.CeilToInt(tempoRestante).ToString();
+            }
+
+            if (tempoRestante <= 0)
+            {
+                tempoRestante = 0;
+
+                if (textTMP != null)
+                {
+                    textTMP.gameObject.SetActive(false);
+                }                
+                
+                if (initialText != null)
+                {
+                    initialText.gameObject.SetActive(false);
+                }
+            }
+        }
     }
 }

@@ -78,7 +78,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 7fc71461d305caa4e98eb46e775d008a, type: 2}
     - target: {fileID: 919132149155446097, guid: 77a090b2305591b42a02c1962b7f05c1, type: 3}
       propertyPath: m_Name
-      value: EnemyZombieMannequinBig 1
+      value: EnemyZombieMannequinBig
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 77a090b2305591b42a02c1962b7f05c1, type: 3}
       propertyPath: m_TagString
@@ -104,13 +104,13 @@ PrefabInstance:
       addedObject: {fileID: 4075572207129451298}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 77a090b2305591b42a02c1962b7f05c1, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 6158024738206839862}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 77a090b2305591b42a02c1962b7f05c1, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 5089593079846337346}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 77a090b2305591b42a02c1962b7f05c1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8462596926843343958}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 77a090b2305591b42a02c1962b7f05c1, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 4416141458463385922}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 77a090b2305591b42a02c1962b7f05c1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4710835883077718488}
@@ -152,6 +152,19 @@ MonoBehaviour:
     kills: 1
   healthBar: {fileID: 1279185162222010132}
   maxHealth: 100
+  killCounterIndex: 1
+--- !u!114 &6158024738206839862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9018806941303238747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: deac12e6c46f0454da9534f3a5dbe5a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &5089593079846337346
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -178,18 +191,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 2342647345222086811}
---- !u!114 &4416141458463385922
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9018806941303238747}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26ee37ed3c8978a489dcfb7357561fef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!136 &4710835883077718488
 CapsuleCollider:
   m_ObjectHideFlags: 0

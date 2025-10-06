@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System;
 
 public class EnemyHealth : MonoBehaviour
 {
@@ -23,6 +24,8 @@ public class EnemyHealth : MonoBehaviour
     private float health;
 
     private Rigidbody rb;
+
+    public event Action OnDeath;
 
     // Adicione um campo para identificar qual killCounter atualizar
     [SerializeField] private int killCounterIndex = 1; // 1 ou 2
@@ -75,6 +78,9 @@ public class EnemyHealth : MonoBehaviour
             kills2++;
             UImanager.instance.UpdateKillCounter2(kills2);
         }
+
+        OnDeath?.Invoke();
+
         Instantiate(deathParticles, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
