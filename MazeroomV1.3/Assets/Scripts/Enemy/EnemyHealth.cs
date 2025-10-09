@@ -68,20 +68,42 @@ public class EnemyHealth : MonoBehaviour
 
     public void Die()
     {
+        // Atualiza contador de kills com checagem null no UImanager
         if (killCounterIndex == 1)
         {
             kills1++;
-            UImanager.instance.UpdateKillCounter1(kills1);
+            if (UImanager.instance != null)
+                UImanager.instance.UpdateKillCounter1(kills1);
+            else
+                Debug.LogWarning("[EnemyHealth] UImanager.instance is null — kill counter not updated.");
         }
         else
         {
             kills2++;
-            UImanager.instance.UpdateKillCounter2(kills2);
+            if (UImanager.instance != null)
+                UImanager.instance.UpdateKillCounter2(kills2);
+            else
+                Debug.LogWarning("[EnemyHealth] UImanager.instance is null — kill counter not updated.");
         }
 
-        OnDeath?.Invoke();
+        // Notifica assinantes (se houver)
+        try
+        {
+            OnDeath?.Invoke();
+        }
+        catch (System.Exception ex)
+        {
+            Debug.LogError("[EnemyHealth] Exception in OnDeath invoke: " + ex);
+        }
 
-        Instantiate(deathParticles, transform.position, Quaternion.identity);
+        // Instancia partículas se houver
+        if (deathParticles != null)
+        {
+            Instantiate(deathParticles, transform.position, Quaternion.identity);
+        }
+
+        // Finalmente destrói o GameObject
         Destroy(gameObject);
     }
+
 }

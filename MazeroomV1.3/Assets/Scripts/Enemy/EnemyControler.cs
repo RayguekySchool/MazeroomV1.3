@@ -6,7 +6,7 @@ public class EnemyControler : MonoBehaviour
 {
     private PlayerMove player;
     private NavMeshAgent nav;
-    public Animator animator; // Added Animator reference
+    public Animator animator; // Animator reference
     private Coroutine damageCoroutine;
 
     [System.Obsolete]
@@ -25,36 +25,40 @@ public class EnemyControler : MonoBehaviour
 
             // Check if enemy is moving
             bool isMoving = nav.velocity.magnitude > 0.1f;
-            animator.SetBool("isWalking", isMoving); // Trigger walking animation
+            if (animator != null)
+                animator.SetBool("isWalking", isMoving); // Trigger walking animation
         }
+    }
 
-        void OnCollisionEnter(Collision collision)
+    // These need to be class-level methods so Unity can call them
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
         {
-            if (collision.gameObject.CompareTag("Player"))
+            PlayerHealth playerHealth = collision.gameObject.GetComponent<PlayerHealth>();
+            if (playerHealth != null)
             {
-                PlayerHealth playerHealth = collision.gameObject.GetComponent<PlayerHealth>();
-                if (playerHealth != null)
-                {
+                if (damageCoroutine == null)
                     damageCoroutine = StartCoroutine(DealDamageOverTime(playerHealth));
-                }
             }
         }
+    }
 
-        void OnCollisionExit(Collision collision)
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player") && damageCoroutine != null)
         {
-            if (collision.gameObject.CompareTag("Player") && damageCoroutine != null)
-            {
-                StopCoroutine(damageCoroutine);
-            }
+            StopCoroutine(damageCoroutine);
+            damageCoroutine = null;
         }
+    }
 
-        IEnumerator DealDamageOverTime(PlayerHealth playerHealth)
+    private IEnumerator DealDamageOverTime(PlayerHealth playerHealth)
+    {
+        while (true)
         {
-            while (true)
-            {
-                playerHealth.TakeDamage(10);
-                yield return new WaitForSeconds(2f);
-            }
+            playerHealth.TakeDamage(10);
+            yield return new WaitForSeconds(2f);
         }
     }
 }

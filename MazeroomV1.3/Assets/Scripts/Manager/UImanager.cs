@@ -1,40 +1,40 @@
 using UnityEngine;
 using TMPro;
-using UnityEngine.UI;
 
 public class UImanager : MonoBehaviour
 {
     public static UImanager instance;
-    [SerializeField]
-    TextMeshProUGUI killCounter_TMP1;
-    [SerializeField]
-    TextMeshProUGUI killCounter_TMP2;
-    public int killCounter1;
-    public int killCounter2;
+
+    [Header("UI Elements")]
+    public TextMeshProUGUI killCounter1Text;
+    public TextMeshProUGUI killCounter2Text;
 
     private void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else
+        // Garante que só exista um UImanager ativo
+        if (instance != null && instance != this)
         {
             Destroy(gameObject);
+            return;
         }
+
+        instance = this;
+        DontDestroyOnLoad(gameObject); // opcional — mantém entre cenas
     }
 
-    public void UpdateKillCounter1(int kills)
+    public void UpdateKillCounter1(int value)
     {
-        killCounter1 = kills;
-        if (killCounter_TMP1 != null)
-            killCounter_TMP1.text = kills.ToString("0");
+        if (killCounter1Text != null)
+            killCounter1Text.text = $"Kills: {value}";
+        else
+            Debug.LogWarning("[UImanager] killCounter1Text não está atribuído!");
     }
 
-    public void UpdateKillCounter2(int kills)
+    public void UpdateKillCounter2(int value)
     {
-        killCounter2 = kills;
-        if (killCounter_TMP2 != null)
-            killCounter_TMP2.text = kills.ToString("0");
+        if (killCounter2Text != null)
+            killCounter2Text.text = $"Kills2: {value}";
+        else
+            Debug.LogWarning("[UImanager] killCounter2Text não está atribuído!");
     }
 }
