@@ -181,6 +181,6 @@ public class PistolaCanvasGun : MonoBehaviour
     void UpdateAmmoUI()
     {
         if (ammoText != null)
-            ammoText.text = $"{currentAmmo} / {reserveAmmo}";
+            ammoText.text = $"{currentAmmo}";
     }
 }

@@ -1,46 +1,69 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
+    public int CoinsOnTheLevel;
+    public AudioSource coinSound;
+    public string NameOfTheNextLevel;
+    public TextMeshProUGUI coinCounterText;
+    private int collectedCoins = 0;
+
+    public GameObject pauseMenu;
 
     void Start()
     {
-        
+        UpdateCoinUI();
+        if (pauseMenu != null)
+        {
+            pauseMenu.SetActive(false);
+        }
     }
-        
+
     void Update()
     {
 
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            TogglePauseMenu();
+        }
+    }
+
+    public void DiscountCoin()
+    {
+        collectedCoins += 1;
+        CoinsOnTheLevel -= 1;
+        coinSound.Play();
+        UpdateCoinUI();
+
+        if (CoinsOnTheLevel <= 0)
+        {
+            SceneManager.LoadScene(NameOfTheNextLevel);
+        }
     }
 
     public void Restart()
     {
-        StartCoroutine(DisableAndReactivatePlayerHealth());
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    // Função genérica para desativar um script do tipo T
-    private void DisableScriptOnReset<T>() where T : MonoBehaviour
+    private void UpdateCoinUI()
     {
-        T script = FindObjectOfType<T>();
-        if (script != null)
+        if (coinCounterText != null)
         {
-            script.enabled = false;
+            coinCounterText.text = collectedCoins + "/" + (collectedCoins + CoinsOnTheLevel);
         }
     }
 
-    // Coroutine para desativar e reativar o PlayerHealth
-    private IEnumerator DisableAndReactivatePlayerHealth()
+
+    private void TogglePauseMenu()
     {
-        PlayerHealth playerHealth = FindObjectOfType<PlayerHealth>();
-        if (playerHealth != null)
+        if (pauseMenu != null)
         {
-            playerHealth.enabled = false;
-            yield return new WaitForSeconds(2f);
-            playerHealth.enabled = true;
+            bool isActive = pauseMenu.activeSelf;
+            pauseMenu.SetActive(!isActive);
+            Time.timeScale = isActive ? 1 : 0;
         }
     }
 }

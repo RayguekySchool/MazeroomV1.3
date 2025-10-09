@@ -6,8 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/MainMenu.unity
-    guid: 92ec684baf4953f4785684a2fff094a5
+    path: Assets/Scenes/NewMainMenu.unity
+    guid: 70a8cec40909f2340835a0ada06ac42e
   - enabled: 1
     path: Assets/Scenes/DoomLike.unity
     guid: a36ce04f89baf714f9213aaeb1272bc3
