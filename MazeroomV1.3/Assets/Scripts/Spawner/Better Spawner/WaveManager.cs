@@ -149,7 +149,7 @@ public class WaveManager : MonoBehaviour
                 HandleEnemyDeath();
             };
             enemyHealth.OnDeath += handler;
-            if (debugLogs) Debug.Log($"[WaveManager] Registrado EnemyHealth em '{enemy.name}'. Total vivos: {enemiesAlive}");
+            if (debugLogs) Debug.Log($"[WaveManager] Registrado EnemyHealth em '{enemy.name}'. Total alive: {enemiesAlive}");
             return;
         }
 
@@ -165,14 +165,14 @@ public class WaveManager : MonoBehaviour
                 HandleEnemyDeath();
             };
             legacy.onDeath += handler;
-            if (debugLogs) Debug.Log($"[WaveManager] Registrado Enemy (legacy) em '{enemy.name}'. Total vivos: {enemiesAlive}");
+            if (debugLogs) Debug.Log($"[WaveManager] Registrado Enemy (legacy) in '{enemy.name}'. Total alive: {enemiesAlive}");
             return;
         }
 
         // Se não achar eventos, faz um watch até o objeto ser destruído (fallback)
         enemiesAlive++;
         StartCoroutine(WatchForDestroy(enemy));
-        if (debugLogs) Debug.Log($"[WaveManager] Fallback: watch destroy em '{enemy.name}'. Total vivos: {enemiesAlive}");
+        if (debugLogs) Debug.Log($"[WaveManager] Fallback: watch destroy in '{enemy.name}'. Total alive: {enemiesAlive}");
     }
 
     private IEnumerator WatchForDestroy(GameObject enemy)
@@ -185,7 +185,7 @@ public class WaveManager : MonoBehaviour
     private void HandleEnemyDeath()
     {
         enemiesAlive = Mathf.Max(0, enemiesAlive - 1);
-        if (debugLogs) Debug.Log($"[WaveManager] Enemy morreu. Restam: {enemiesAlive}");
+        if (debugLogs) Debug.Log($"[WaveManager] Enemy is dead. Remaining: {enemiesAlive}");
     }
 
     IEnumerator Countdown(float time)
@@ -194,7 +194,7 @@ public class WaveManager : MonoBehaviour
         while (t > 0)
         {
             if (waveCountdownText != null)
-                waveCountdownText.text = "Próxima wave em: " + Mathf.CeilToInt(t) + "s";
+                waveCountdownText.text = "Next wave in: " + Mathf.CeilToInt(t) + "s";
             t -= Time.deltaTime;
             yield return null;
         }
